@@ -2,35 +2,38 @@
 name = "bevy_egui"
 version = "0.34.1"
 # Needed for LazyLock https://doc.rust-lang.org/stable/std/sync/struct.LazyLock.html
-rust-version = "1.80.0"
 authors = ["vladbat00 <vladyslav.batyrenko@gmail.com>"]
 description = "A plugin for Egui integration into Bevy"
-license = "MIT"
 edition = "2021"
-repository = "https://github.com/vladbat00/bevy_egui"
 exclude = ["assets/**/*", ".github/**/*"]
+license = "MIT"
+repository = "https://github.com/vladbat00/bevy_egui"
+rust-version = "1.80.0"
 
 [package.metadata.docs.rs]
 features = ["bevy_winit/x11", "immutable_ctx"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [features]
+accesskit_placeholder = [
+  "egui/accesskit",
+  "bevy_a11y",
+] # the feature won't compile until Egui updates its accesskit version, hence disabled by default
 default = ["manage_clipboard", "open_url", "default_fonts", "render", "picking"]
-accesskit_placeholder = ["egui/accesskit", "bevy_a11y"] # the feature won't compile until Egui updates its accesskit version, hence disabled by default
+default_fonts = ["egui/default_fonts"]
 immutable_ctx = []
 manage_clipboard = ["arboard", "thread_local", "bytemuck"]
 open_url = ["webbrowser"]
-default_fonts = ["egui/default_fonts"]
-render = [
-    "bevy_asset",
-    "bevy_image",
-    "bevy_render",
-    "encase",
-    "bytemuck",
-    "egui/bytemuck",
-    "wgpu-types",
-]
 picking = ["bevy_picking"]
+render = [
+  "bevy_asset",
+  "bevy_image",
+  "bevy_render",
+  "encase",
+  "bytemuck",
+  "egui/bytemuck",
+  "wgpu-types",
+]
 serde = ["egui/serde"]
 # The enabled logs will print with the info log level, to make it less cumbersome to debug in browsers.
 log_input_events = []
@@ -75,82 +78,102 @@ name = "file_browse"
 required-features = ["render"]
 
 [dependencies]
-egui = { version = "0.31", default-features = false }
-bevy_a11y = { version = "0.16.0", optional = true }
-bevy_app = "0.16.0"
-bevy_derive = "0.16.0"
-bevy_ecs = "0.16.0"
-bevy_input = "0.16.0"
-bevy_log = "0.16.0"
-bevy_math = "0.16.0"
-bevy_reflect = "0.16.0"
-bevy_time = "0.16.0"
-bevy_winit = "0.16.0"
-bevy_window = "0.16.0"
-bevy_platform = "0.16.0"
+# bevy_a11y = {version = "0.16.0-dev", optional = true}
+# bevy_app = "0.16.0-dev"
+# bevy_derive = "0.16.0-dev"
+# bevy_ecs = "0.16.0-dev"
+# bevy_input = "0.16.0-dev"
+# bevy_log = "0.16.0-dev"
+# bevy_math = "0.16.0-dev"
+# bevy_platform = "0.16.0-dev"
+# bevy_reflect = "0.16.0-dev"
+# bevy_time = "0.16.0-dev"
+# bevy_window = "0.16.0-dev"
+# bevy_winit = "0.16.0-dev"
+#######################################
+bevy_a11y = {git = "https://github.com/bevyengine/bevy.git", branch = "main", optional = true}
+bevy_app = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_derive = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_ecs = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_input = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_log = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_math = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_platform = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_reflect = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_time = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_window = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+bevy_winit = {git = "https://github.com/bevyengine/bevy.git", branch = "main"}
+#######################################
+egui = {version = "0.31", default-features = false}
 
 # `open_url` feature
-webbrowser = { version = "1.0.1", optional = true }
+webbrowser = {version = "1.0.1", optional = true}
 
 # `render` feature
-bytemuck = { version = "1", optional = true }
-bevy_asset = { version = "0.16.0", optional = true }
-bevy_image = { version = "0.16.0", optional = true }
-bevy_render = { version = "0.16.0", optional = true }
-encase = { version = "0.10", optional = true }
-wgpu-types = { version = "24.0", optional = true }
+# bevy_asset = {version = "0.16.0-dev", optional = true}
+# bevy_image = {version = "0.16.0-dev", optional = true}
+# bevy_render = {version = "0.16.0-dev", optional = true}
+##################################
+bevy_asset = {git = "https://github.com/bevyengine/bevy.git", branch = "main", optional = true}
+bevy_image = {git = "https://github.com/bevyengine/bevy.git", branch = "main", optional = true}
+bevy_render = {git = "https://github.com/bevyengine/bevy.git", branch = "main", optional = true}
+##################################
+bytemuck = {version = "1", optional = true}
+encase = {version = "0.10", optional = true}
+wgpu-types = {version = "24.0", optional = true}
 
 # `picking` feature
-bevy_picking = { version = "0.16.0", optional = true }
+# bevy_picking = {version = "0.16.0-dev", optional = true}
+bevy_picking = {git = "https://github.com/bevyengine/bevy.git", branch = "main", optional = true}
 
 # `manage_clipboard` feature
 [target.'cfg(not(any(target_arch = "wasm32", target_os = "android")))'.dependencies]
-arboard = { version = "3.2.0", optional = true }
-thread_local = { version = "1.1.0", optional = true }
+arboard = {version = "3.2.0", optional = true}
+thread_local = {version = "1.1.0", optional = true}
 
 [dev-dependencies]
+bevy = {git = "https://github.com/bevyengine/bevy", branch = "main", version = "0.16.0-dev", default-features = false, features = [
+  "accesskit_unix",
+  "bevy_log",
+  "bevy_asset",
+  "bevy_core_pipeline",
+  "bevy_pbr",
+  "bevy_mesh_picking_backend",
+  "bevy_sprite",
+  "bevy_window",
+  "bevy_winit",
+  "android-game-activity",
+  "png",
+  "std",
+  "tonemapping_luts",
+  "webgl2",
+  "x11",
+]}
+egui = {version = "0.31", default-features = false, features = ["bytemuck"]}
 version-sync = "0.9.5"
-bevy = { version = "0.16.0", default-features = false, features = [
-    "accesskit_unix",
-    "bevy_log",
-    "bevy_asset",
-    "bevy_core_pipeline",
-    "bevy_pbr",
-    "bevy_mesh_picking_backend",
-    "bevy_sprite",
-    "bevy_window",
-    "bevy_winit",
-    "android-game-activity",
-    "png",
-    "std",
-    "tonemapping_luts",
-    "webgl2",
-    "x11",
-] }
-egui = { version = "0.31", default-features = false, features = ["bytemuck"] }
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios", target_arch = "wasm32")))'.dev-dependencies]
 rfd = "0.15"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-winit = "0.30"
-web-sys = { version = "0.3.74", features = [
-    "Clipboard",
-    "ClipboardEvent",
-    "ClipboardItem",
-    "CompositionEvent",
-    "DataTransfer",
-    "Document",
-    "EventTarget",
-    "HtmlInputElement",
-    "InputEvent",
-    "KeyboardEvent",
-    "Navigator",
-    "TouchEvent",
-    "Window",
-] }
-image = { version = "0.25.5", default-features = false, features = ["png"] } # For copying images
+crossbeam-channel = "0.5.8"
+image = {version = "0.25.5", default-features = false, features = ["png"]}# For copying images
 js-sys = "0.3.63"
 wasm-bindgen = "0.2.93"
 wasm-bindgen-futures = "0.4.36"
-crossbeam-channel = "0.5.8"
+web-sys = {version = "0.3.74", features = [
+  "Clipboard",
+  "ClipboardEvent",
+  "ClipboardItem",
+  "CompositionEvent",
+  "DataTransfer",
+  "Document",
+  "EventTarget",
+  "HtmlInputElement",
+  "InputEvent",
+  "KeyboardEvent",
+  "Navigator",
+  "TouchEvent",
+  "Window",
+]}
+winit = "0.30"
